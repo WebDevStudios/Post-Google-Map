@@ -26,6 +26,14 @@ add_action( 'widgets_init', 'gmp_register_widget' );
 //register the [google-map] shortcode
 add_shortcode( 'google-map', 'gmp_register_shortcode' );
 
+//Load our textdomain
+add_action('plugins_loaded', 'gmp_textdomain');
+
+
+function gmp_textdomain() {
+  load_plugin_textdomain( 'post-google-map', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+
 function gmp_register_widget() {
 
 	//register the map widget
