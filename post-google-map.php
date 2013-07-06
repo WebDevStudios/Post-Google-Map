@@ -183,22 +183,22 @@ function gmp_post_meta_tags() {
 			$alreadyran = "1";
 
 			//get post data
-			$gmp_long = esc_attr($_POST["gmp_long"]);
-			$gmp_lat = esc_attr($_POST["gmp_lat"]);
-			$gmp_address1 = esc_attr($_POST["gmp_address1"]);
-			$gmp_address2 = esc_attr($_POST["gmp_address2"]);
-			$gmp_city = esc_attr($_POST["gmp_city"]);
-			$gmp_state = esc_attr($_POST["gmp_state"]);
-			$gmp_zip = esc_attr($_POST["gmp_zip"]);
-			$gmp_marker = esc_attr($_POST["gmp_marker"]);
-			$gmp_title = esc_attr($_POST["gmp_title"]);
-			$gmp_description = esc_attr($_POST["gmp_description"]);
-			$gmp_desc_show = esc_attr($_POST["gmp_desc_show"]);
+            $gmp_long           = esc_attr($_POST["gmp_long"]);
+            $gmp_lat            = esc_attr($_POST["gmp_lat"]);
+            $gmp_address1       = esc_attr($_POST["gmp_address1"]);
+            $gmp_address2       = esc_attr($_POST["gmp_address2"]);
+            $gmp_city           = esc_attr($_POST["gmp_city"]);
+            $gmp_state          = esc_attr($_POST["gmp_state"]);
+            $gmp_zip            = esc_attr($_POST["gmp_zip"]);
+            $gmp_marker         = esc_attr($_POST["gmp_marker"]);
+            $gmp_title          = esc_attr($_POST["gmp_title"]);
+            $gmp_description    = esc_attr($_POST["gmp_description"]);
+            $gmp_desc_show      = esc_attr($_POST["gmp_desc_show"]);
 
 			//get long & lat
 			if ( isset( $gmp_long ) && ! empty( $gmp_long ) && isset( $gmp_lat ) && ! empty( $gmp_lat ) ) {
 
-			}elseif ( isset( $gmp_address1 ) && ! empty( $gmp_address1 ) ) {
+			} elseif ( isset( $gmp_address1 ) && ! empty( $gmp_address1 ) ) {
 
 				$options_arr = get_option( 'gmp_params' );
 				$key = $options_arr["post_gmp_params"];
@@ -267,7 +267,7 @@ function gmp_meta_box() {
 	//load saved addresses if any exist
 	$gmp_arr = get_post_meta( $post->ID, 'gmp_arr', false );
 
-	$imgpath = plugin_dir_url( __FILE__ ) .'/markers/';
+	$imgpath = plugin_dir_url( __FILE__ ) . '/markers/';
 	?>
 	<form method="post">
 		<input value="<?php echo absint( $post->ID ); ?>" type="hidden" name="gmp_id" />
@@ -275,35 +275,34 @@ function gmp_meta_box() {
         <table cellspacing="0" cellpadding="3" width="100%" style="margin-bottom:20px">
         	<tr>
             	<td colspan="2"></td>
-                <td><strong>Address 1</strong></td>
-                <td><strong>Address 2</strong></td>
-                <td><strong>City</strong></td>
-                <td><strong>State</strong></td>
-                <td><strong>Zip</strong></td>
+                <td><strong><?php _e( 'Address 1', 'gmp-plugin' ); ?></strong></td>
+                <td><strong><?php _e( 'Address 2', 'gmp-plugin' ); ?></strong></td>
+                <td><strong><?php _e( 'City', 'gmp-plugin' ); ?></strong></td>
+                <td><strong><?php _e( 'State', 'gmp-plugin' ); ?></strong></td>
+                <td><strong><?php _e( 'Zip', 'gmp-plugin' ); ?></strong></td>
             </tr>
-            <?php
-			if ( is_array( $gmp_arr ) ) {
+            <?php if ( is_array( $gmp_arr ) ) {
 				$bgc = "";
 				for ( $row = 0; $row < count( $gmp_arr ); $row++ ) {
 
-					if( $bgc=="" ) {
-						$bgc="#eeeeee";
-					}else{
-						$bgc="";
+					if( $bgc == "" ) {
+						$bgc = "#eeeeee";
+					} else {
+						$bgc = "";
 					}
 
 					$gmp_action = "delete-address";
 					?>
                     <tr style="background:<?php echo esc_attr( $bgc );?> !important;" bgcolor="<?php echo esc_attr( $bgc );?>">
-                        <td><a title="Delete Address" href="<?php echo wp_nonce_url( add_query_arg ( 'deladdy', $row ), $gmp_action ); ?>"><img width="15px" border="0" src="<?php echo WP_PLUGIN_URL . '/post-google-map/delete.png';?>"></a></td>
-                    	<td><img width="25px" src="<?php echo $imgpath.$gmp_arr[$row]["gmp_marker"]; ?>"></td>
+                        <td><a title="<?php esc_attr_e( 'Delete Address', 'gmp-plugin' ); ?>" href="<?php echo wp_nonce_url( add_query_arg ( 'deladdy', $row ), $gmp_action ); ?>"><img width="15px" border="0" src="<?php echo WP_PLUGIN_URL . '/post-google-map/delete.png';?>"></a></td>
+                    	<td><img width="25px" src="<?php echo esc_attr( $imgpath.$gmp_arr[$row]["gmp_marker"] ); ?>"></td>
                         <td><?php echo esc_html( $gmp_arr[$row]["gmp_address1"] ); ?></td>
                         <td><?php echo esc_html( $gmp_arr[$row]["gmp_address2"] ); ?></td>
                         <td><?php echo esc_html( $gmp_arr[$row]["gmp_city"] ); ?></td>
                         <td><?php echo esc_html( $gmp_arr[$row]["gmp_state"] ); ?></td>
                         <td><?php echo esc_html( $gmp_arr[$row]["gmp_zip"] ); ?></td>
                    	</tr>
-                    <tr style="background:<?php echo $bgc;?> !important;" bgcolor="<?php echo $bgc;?>">
+                    <tr style="background:<?php echo esc_attr( $bgc );?> !important;" bgcolor="<?php echo esc_attr( $bgc );?>">
                     	<td colspan="2"></td>
                         <td colspan="5">
                         	<?php echo $gmp_arr[$row]["gmp_title"];
@@ -315,12 +314,12 @@ function gmp_meta_box() {
                     </tr>
 	            	<?php
 					}
-			}else{
+			} else {
 				?><tr><td colspan="6" align="center"><i>no addresses saved</i></td></tr><?php
 			}
 			?>
         </table>
-		<div style="padding-bottom:10px;">Enter an address or coordinates to plot this post/page on a Google Map.  You can enter multiple addresses</div>
+		<div style="padding-bottom:10px;"><?php _e( 'Enter an address or coordinates to plot this post/page on a Google Map.  You can enter multiple addresses', 'gmp-plugin' ); ?></div>
 		<table style="margin-bottom:20px">
             <tr>
             <th style="text-align:right;" colspan="2">
@@ -334,15 +333,15 @@ function gmp_meta_box() {
 					//allow extensions
 					$allowed_exts = apply_filters( 'gmp_allowed_exts', array( 'jpg', 'jpeg', 'gif', 'png' ) );
 
-					$dir = plugin_dir_path( __FILE__ ) .'/markers/';
-					$x=0;
+					$dir = plugin_dir_path( __FILE__ ) . '/markers/';
+					$x = 0;
 					if ( is_dir( $dir ) ) {
 						if ( $handle = opendir( $dir ) ) {
 							while ( false !== ( $file = readdir( $handle ) ) ) {
 								$ext = pathinfo( $file , PATHINFO_EXTENSION);
 								if ( $file != "." && $file != ".." && in_array( $ext, $allowed_exts ) ) {
 									$x=1;
-									echo "<option value='".esc_attr( $file )."' style='background: url(".$imgpath.$file.")no-repeat;text-indent: 30px;height:25px;'>".$file;
+									echo "<option value='" . esc_attr( $file ) . "' style='background: url(" . $imgpath . $file . ")no-repeat;text-indent: 30px;height:25px;'>" . $file;
 								}
 							}
 							closedir( $handle );
@@ -353,52 +352,52 @@ function gmp_meta_box() {
             </td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Title', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_title" size="25" tabindex=91 />*If blank will use post title.</td>
+            <th scope="row" style="text-align:right;"><label for="gmp_title"><?php _e( 'Title', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_title" name="gmp_title" size="25" tabindex="91" /> <?php _e( '*If blank will use post title.', 'gmp-plugin' ); ?></td>
             </tr>
             <tr>
-            <th valign="top" scope="row" style="text-align:right;"><?php _e( 'Description', 'gmp-plugin' ) ?></th>
-            <td><textarea name="gmp_description" style="width:300px;" tabindex=92 ></textarea><br>
-            <input checked type="checkbox" name="gmp_desc_show"> Use excerpt or first ten words of post if excerpt is blank.
+            <th valign="top" scope="row" style="text-align:right;"><label for="gmp_description"><?php _e( 'Description', 'gmp-plugin' ) ?></label></th>
+            <td><textarea id="gmp_description" name="gmp_description" style="width:300px;" tabindex="92" ></textarea><br>
+            <input checked type="checkbox" id="gmp_desc_show" name="gmp_desc_show"><label for="gmp_desc_show"><?php _e( 'Use excerpt or first ten words of post if excerpt is blank.', 'gmp-plugin' ); ?></label>
             </td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Address 1', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_address1" size="25" tabindex=93 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_address1"><?php _e( 'Address 1', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_address1" name="gmp_address1" size="25" tabindex="93" /></td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Address 2', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_address2" size="25" tabindex=94 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_address2"><?php _e( 'Address 2', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_address2" name="gmp_address2" size="25" tabindex="94" /></td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'City', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_city" size="25" tabindex=95 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_city"><?php _e( 'City', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_city" name="gmp_city" size="25" tabindex="95" /></td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'State', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_state" size="15" tabindex=96 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_state"><?php _e( 'State', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_state" name="gmp_state" size="15" tabindex="96" /></td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Zip Code', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_zip" size="10" tabindex=97 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_zip"><?php _e( 'Zip Code', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_zip" name="gmp_zip" size="10" tabindex="97" /></td>
             </tr>
             <tr>
             	<th scope="row" style="text-align:right;"></th>
             	<td>OR</td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Longitude', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_long" size="20" tabindex=98 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_long"><?php _e( 'Longitude', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_long" name="gmp_long" size="20" tabindex="98" /></td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><?php _e( 'Latitude', 'gmp-plugin' ) ?></th>
-            <td><input value="" type="text" name="gmp_lat" size="20" tabindex=99 /></td>
+            <th scope="row" style="text-align:right;"><label for="gmp_lat"><?php _e( 'Latitude', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_lat" name="gmp_lat" size="20" tabindex="99" /></td>
             </tr>
             <tr>
             <th scope="row"></th>
             <td>
             	<div class="submit">
-                	<input type="submit" name="gmp_submit" value="<?php _e( 'Add Address', 'gmp-plugin' ); ?>" tabindex=100  />
+                	<input type="submit" class="button button-secondary" name="gmp_submit" value="<?php _e( 'Add Address', 'gmp-plugin' ); ?>" tabindex="100" />
             	</div>
             </td>
             </tr>
@@ -419,11 +418,11 @@ function gmp_update_options() {
 	//nonce check for security
 	check_admin_referer( 'gmp_check' );
 
-	//create array for storing option values
+	//create array for storing option values. Sanitized later
 	$wds_gmp_arr = array(
 		"post_gmp_map_type"	=>	$_POST['gmp_map_type'],
 		"gmp_marker_max"	=>	$_POST['gmp_marker_max'],
-		);
+	);
 
 	//sanitize the values
 	$wds_gmp_arr = array_map( 'strip_tags', $wds_gmp_arr );
@@ -442,13 +441,7 @@ function gmp_options() {
 		//update plugin options
 		gmp_update_options();
 
-		echo "<div class=\"updated\">\n"
-			. "<p>"
-				. "<strong>"
-				. __( 'Settings saved.', 'gmp-plugin' )
-				. "</strong>"
-			. "</p>\n"
-			. "</div>\n";
+		echo '<div class="updated"><p><strong>' . __( 'Settings saved.', 'gmp-plugin' ) . '</strong></p></div>';
 	}
 
 	//load plugin settings
@@ -472,10 +465,10 @@ function gmp_options() {
 	<td align=right><?php _e( 'Map Type', 'gmp-plugin' ); ?>:</td>
 	<td>
 		<select name="gmp_map_type">
-			<option value="ROADMAP" <?php selected( $options_map_type, 'ROADMAP' ); ?> >Road
-			<option value="SATELLITE" <?php selected( $options_map_type, 'SATELLITE' ); ?> >Satellite
-			<option value="HYBRID" <?php selected( $options_map_type, 'HYBRID' ); ?> >Hybrid
-			<option value="TERRAIN" <?php selected( $options_map_type, 'TERRAIN' ); ?> >Terrain
+			<option value="ROADMAP" <?php selected( $options_map_type, 'ROADMAP' ); ?> ><?php _e( 'Road', 'gmp-plugin' ); ?>
+			<option value="SATELLITE" <?php selected( $options_map_type, 'SATELLITE' ); ?> ><?php _e( 'Satellite', 'gmp-plugin' ); ?>
+			<option value="HYBRID" <?php selected( $options_map_type, 'HYBRID' ); ?> ><?php _e( 'Hybrid', 'gmp-plugin' ); ?>
+			<option value="TERRAIN" <?php selected( $options_map_type, 'TERRAIN' ); ?> ><?php _e( 'Terrain', 'gmp-plugin' ); ?>
 		</select>
 	</td>
 	</tr>
@@ -483,7 +476,7 @@ function gmp_options() {
 			<td align=right><?php _e( 'Marker Plot Max', 'gmp-plugin' ); ?>:</td>
 			<td>
 				<select name="gmp_marker_max">
-					<?php for ( $x = 0; $x <50; ){
+					<?php for ( $x = 0; $x < 50; ){
 						$x = $x + 5;
 						?>
 						<option value='<?php echo esc_attr( $x ); ?>' <?php selected( $gmp_marker_max, $x ); ?>><?php echo esc_html( $x ); ?>
@@ -491,17 +484,13 @@ function gmp_options() {
                     }
 					?>
 				</select>
-                *per page load
+                <?php _e( '*per page load', 'gmp-plugin' ); ?>
 			</td>
 	</tr>
 	</table>
 
 	<?php
-	echo '<p class="submit">'
-	. '<input type="submit"'
-		. ' value="' . __( 'Save Changes', 'gmp-plugin' ) . '"'
-		. ' class="button-primary" />'
-	. '</p></form>';
-	echo '<p>For support please visit our <a href="http://webdevstudios.com/support/wordpress-plugins/" target="_blank">WordPress Plugins</a> and <a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">Support Forum</a><br>Version '. $gmp_version .' by <a href="http://webdevstudios.com/" title="WordPress Development and Design" target="_blank">WebDevStudios.com</a> | <a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a></p>';
-	echo '</div>';
+	echo '<p class="submit"> <input type="submit" value="' . __( 'Save Changes', 'gmp-plugin' ) . '" class="button-primary" /></p></form>';
+
+	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a><br>', '<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
 }
