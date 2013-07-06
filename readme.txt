@@ -97,6 +97,3 @@ That's it! Addresses will automatically be plotted on the map for each post/page
 = Does this plugin work with WordPress Multisite? =
 
 Absolutely!  This plugin has been tested and verified to work on the most current version of WordPress and Multisite
-
-== Plugin Support ==
-[Post Google Map Support](http://wordpress.org/support/plugin/post-google-map "WordPress Plugin Support")
