@@ -31,7 +31,7 @@ add_action('plugins_loaded', 'gmp_textdomain');
 
 
 function gmp_textdomain() {
-  load_plugin_textdomain( 'post-google-map', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+  load_plugin_textdomain( 'gmp-plugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 
 function gmp_register_widget() {
