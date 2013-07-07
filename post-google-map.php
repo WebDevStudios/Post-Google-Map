@@ -54,57 +54,6 @@ function gmp_register_shortcode() {
 
 }
 
-//post google map widget
-class gmp_map_widget extends WP_Widget {
-
-    //process the new widget
-    function gmp_map_widget() {
-        $widget_ops = array(
-			'classname' => 'gmp_map_widget',
-			'description' => __( 'Widget to show Post Google Map plots', 'gmp-plugin' )
-			);
-        $this->WP_Widget( 'gmp_map_widget', __( 'Post Google Map Widget', 'gmp-plugin' ), $widget_ops );
-    }
-
-     //build the widget settings form
-    function form($instance) {
-        $defaults = array( 'title' => 'Google Map' );
-        $instance = wp_parse_args( (array) $instance, $defaults );
-        $title = $instance['title'];
-        ?>
-            <p>Title: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
-        <?php
-    }
-
-    //save the widget settings
-    function update( $new_instance, $old_instance ) {
-        $instance = $old_instance;
-
-        $instance['title'] = strip_tags( $new_instance['title'] );
-
-        return $instance;
-    }
-
-    //display the widget
-    function widget( $args, $instance ) {
-
-        extract( $args );
-
-        echo $before_widget;
-        $title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( !empty( $title ) ) { echo $before_title . esc_html( $title ) . $after_title; };
-
-		//generate the map
-		gmp_generate_map( '200' );
-
-		// Reset Post Data
-		wp_reset_postdata();
-
-        echo $after_widget;
-    }
-}
-
 //save/update post/page address fields from meta box
 function gmp_add_new_address() {
 
@@ -269,6 +218,7 @@ function gmp_meta_box() {
 	?>
 	<form method="post">
 		<input value="<?php echo absint( $post->ID ); ?>" type="hidden" name="gmp_id" />
+		<div style="padding-bottom:10px;"><?php _e( 'To display in your post, add this shortcode', 'gmp-plugin' ); ?>: <strong>[google-map]</strong></div>
         <div style="padding-bottom:10px;"><?php _e( 'Current Saved Addresses', 'gmp-plugin' ); ?>:</div>
         <table cellspacing="0" cellpadding="3" width="100%" style="margin-bottom:20px">
         	<tr>
@@ -394,9 +344,7 @@ function gmp_meta_box() {
             <tr>
             <th scope="row"></th>
             <td>
-            	<div class="submit">
                 	<input type="submit" class="button button-secondary" name="gmp_submit" value="<?php _e( 'Add Address', 'gmp-plugin' ); ?>" tabindex="100" />
-            	</div>
             </td>
             </tr>
 		</table>
@@ -491,4 +439,57 @@ function gmp_options() {
 	echo '<p class="submit"> <input type="submit" value="' . __( 'Save Changes', 'gmp-plugin' ) . '" class="button-primary" /></p></form>';
 
 	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a><br>', '<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
+}
+
+
+
+//post google map widget
+class gmp_map_widget extends WP_Widget {
+
+    //process the new widget
+    function gmp_map_widget() {
+        $widget_ops = array(
+			'classname' => 'gmp_map_widget',
+			'description' => __( 'Widget to show Post Google Map plots', 'gmp-plugin' )
+			);
+        $this->WP_Widget( 'gmp_map_widget', __( 'Post Google Map Widget', 'gmp-plugin' ), $widget_ops );
+    }
+
+     //build the widget settings form
+    function form($instance) {
+        $defaults = array( 'title' => 'Google Map' );
+        $instance = wp_parse_args( (array) $instance, $defaults );
+        $title = $instance['title'];
+        ?>
+            <p>Title: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+        <?php
+    }
+
+    //save the widget settings
+    function update( $new_instance, $old_instance ) {
+        $instance = $old_instance;
+
+        $instance['title'] = strip_tags( $new_instance['title'] );
+
+        return $instance;
+    }
+
+    //display the widget
+    function widget( $args, $instance ) {
+
+        extract( $args );
+
+        echo $before_widget;
+        $title = apply_filters( 'widget_title', $instance['title'] );
+
+		if ( !empty( $title ) ) { echo $before_title . esc_html( $title ) . $after_title; };
+
+		//generate the map
+		gmp_generate_map( '200' );
+
+		// Reset Post Data
+		wp_reset_postdata();
+
+        echo $after_widget;
+    }
 }
