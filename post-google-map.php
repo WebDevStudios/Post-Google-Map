@@ -336,12 +336,12 @@ function gmp_meta_box() {
             	<td>OR</td>
             </tr>
             <tr>
-            <th scope="row" style="text-align:right;"><label for="gmp_long"><?php _e( 'Longitude', 'gmp-plugin' ) ?></label></th>
-            <td><input value="" type="text" id="gmp_long" name="gmp_long" size="20" tabindex="98" /></td>
-            </tr>
-            <tr>
             <th scope="row" style="text-align:right;"><label for="gmp_lat"><?php _e( 'Latitude', 'gmp-plugin' ) ?></label></th>
             <td><input value="" type="text" id="gmp_lat" name="gmp_lat" size="20" tabindex="99" /></td>
+            </tr>
+            <tr>
+            <th scope="row" style="text-align:right;"><label for="gmp_long"><?php _e( 'Longitude', 'gmp-plugin' ) ?></label></th>
+            <td><input value="" type="text" id="gmp_long" name="gmp_long" size="20" tabindex="98" /></td>
             </tr>
             <tr>
             <th scope="row"></th>
@@ -440,6 +440,8 @@ function gmp_options() {
 	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'gmp-plugin' ); ?>" class="button-primary" /></p>
 	</form>
 
+	<h3><?php _e( 'How do I add custom icons to be used for map markers', 'gmp-plugin' ); ?></h3>
+	<p><?php _e( 'Create a folder inside your wp-content folder named "markers", add your custom markers to the folder, and we will do the rest.', 'gmp-plugin' ); ?></p>
 	<?php
 	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s. Please file bugs %s GitHub %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a>', '<a href="https://github.com/WebDevStudios/Post-Google-Map">', '</a><br/>','<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
 }
@@ -464,7 +466,7 @@ class gmp_map_widget extends WP_Widget {
         $instance = wp_parse_args( (array) $instance, $defaults );
         $title = $instance['title'];
         ?>
-            <p>Title: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
+            <p><?php _e( 'Title', 'gmp-plugin' ); ?>: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
         <?php
     }
 
