@@ -230,6 +230,7 @@ function gmp_meta_box() {
                 <td><strong><?php _e( 'Zip', 'gmp-plugin' ); ?></strong></td>
             </tr>
             <?php if ( is_array( $gmp_arr ) ) {
+            	//List all of our saved addresses.
 				$bgc = "";
 				for ( $row = 0; $row < count( $gmp_arr ); $row++ ) {
 
@@ -278,6 +279,7 @@ function gmp_meta_box() {
             <td>
             	<select name="gmp_marker">
                 	<?php
+                	//create our dropdown based on icons in the markers directory
 					//allow extensions
 					$allowed_exts = apply_filters( 'gmp_allowed_exts', array( 'jpg', 'jpeg', 'gif', 'png' ) );
 
@@ -435,10 +437,11 @@ function gmp_options() {
 	</tr>
 	</table>
 
-	<?php
-	echo '<p class="submit"> <input type="submit" value="' . __( 'Save Changes', 'gmp-plugin' ) . '" class="button-primary" /></p></form>';
+	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'gmp-plugin' ); ?>" class="button-primary" /></p>
+	</form>
 
-	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a><br>', '<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
+	<?php
+	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s. Please file bugs %s GitHub %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a>', '<a href="https://github.com/WebDevStudios/Post-Google-Map">', '</a><br/>','<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
 }
 
 
