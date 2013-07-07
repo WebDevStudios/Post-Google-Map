@@ -183,17 +183,17 @@ function gmp_post_meta_tags() {
 			$alreadyran = "1";
 
 			//get post data
-            $gmp_long           = esc_attr($_POST["gmp_long"]);
-            $gmp_lat            = esc_attr($_POST["gmp_lat"]);
-            $gmp_address1       = esc_attr($_POST["gmp_address1"]);
-            $gmp_address2       = esc_attr($_POST["gmp_address2"]);
-            $gmp_city           = esc_attr($_POST["gmp_city"]);
-            $gmp_state          = esc_attr($_POST["gmp_state"]);
-            $gmp_zip            = esc_attr($_POST["gmp_zip"]);
-            $gmp_marker         = esc_attr($_POST["gmp_marker"]);
-            $gmp_title          = esc_attr($_POST["gmp_title"]);
-            $gmp_description    = esc_attr($_POST["gmp_description"]);
-            $gmp_desc_show      = esc_attr($_POST["gmp_desc_show"]);
+            $gmp_long           = esc_attr( $_POST["gmp_long"] );
+            $gmp_lat            = esc_attr( $_POST["gmp_lat"] );
+            $gmp_address1       = esc_attr( $_POST["gmp_address1"] );
+            $gmp_address2       = esc_attr( $_POST["gmp_address2"] );
+            $gmp_city           = esc_attr( $_POST["gmp_city"] );
+            $gmp_state          = esc_attr( $_POST["gmp_state"] );
+            $gmp_zip            = esc_attr( $_POST["gmp_zip"] );
+            $gmp_marker         = esc_attr( $_POST["gmp_marker"] );
+            $gmp_title          = esc_attr( $_POST["gmp_title"] );
+            $gmp_description    = esc_attr( $_POST["gmp_description"] );
+            $gmp_desc_show      = esc_attr( $_POST["gmp_desc_show"] );
 
 			//get long & lat
 			if ( isset( $gmp_long ) && ! empty( $gmp_long ) && isset( $gmp_lat ) && ! empty( $gmp_lat ) ) {
@@ -203,19 +203,17 @@ function gmp_post_meta_tags() {
 				$options_arr = get_option( 'gmp_params' );
 				$key = $options_arr["post_gmp_params"];
 				$addressarr = array( $gmp_address1, $gmp_city, $gmp_state, $gmp_zip );
-				$address = IMPLODE( ",", $addressarr );
-				$iaddress = "http://maps.google.com/maps/geo?q=" .urlencode( $address );
+				$address = implode( ',', $addressarr );
+				$iaddress = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=' . urlencode( $address );
 
 				//use the WordPress HTTP API to call the Google Maps API and get coordinates
-				$result = wp_remote_get( esc_url( $iaddress ) );
-
+				$result = wp_remote_get( $iaddress );
 				if( ! is_wp_error( $result ) ) {
 
 					$json = json_decode( $result['body'] );
-
 					//set lat/long for address from JSON response
-					$lat = $json->Placemark[0]->Point->coordinates[1];
-					$lng = $json->Placemark[0]->Point->coordinates[0];
+					$lat = $json->results[0]->geometry->location->lat;
+					$lng = $json->results[0]->geometry->location->lng;
 
 				}
 
