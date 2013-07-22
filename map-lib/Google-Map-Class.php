@@ -132,34 +132,37 @@ class GMP_Google_Map {
         //Don't ask me how we were getting multiple markers for the different addresses.
         $id = $args_arr[0]['post_id'];
         $gmp_arr = get_post_meta( $id, 'gmp_arr', false );
-        $counter = 0;
-        foreach ( $args_arr as $args ) {
 
-			$markers++;
+        foreach ( $args_arr as $args ) {
 
             extract( $args, EXTR_OVERWRITE );
 
 			//$gmp_arr = get_post_meta( $post_id, 'gmp_arr', true );
-			$gmp_marker = ( !empty( $gmp_arr[ $counter ]['gmp_marker'] ) ) ? $gmp_arr[ $counter ]["gmp_marker"] : 'blue-dot.png';
+			$gmp_marker = ( !empty( $gmp_arr[ $markers ]['gmp_marker'] ) ) ? $gmp_arr[ $markers ]["gmp_marker"] : 'blue-dot.png';
+            $address = esc_js( $gmp_arr[ $markers ]['gmp_address1'] );
+            if ( !empty( $gmp_arr[ $markers ]['gmp_address2'] ) )
+                $address .= '<br/>' . esc_js( $gmp_arr[ $markers ]['gmp_address2'] );
 
-			$return .= 'var icon = new google.maps.MarkerImage( "'.plugins_url( '/markers/' .$gmp_marker, dirname( __FILE__ ) ).'")';
+			$return .= 'var icon = new google.maps.MarkerImage( "' . plugins_url( '/markers/' . $gmp_marker, dirname( __FILE__ ) ) . '");';
 
-            $address = esc_js( $address );
-            $content = $img.$title;
-            $return.='
-                var myLatLng = new google.maps.LatLng('.esc_js( $lat ).','.esc_js( $lng ).');
+            $content = $img . $title;
+            $id = absint( $post_id ) . '_' . $markers;
+            $return .=
+                'var myLatLng = new google.maps.LatLng('.esc_js( $lat ).','.esc_js( $lng ).');
                 bounds.extend(myLatLng);
-                var marker'.$post_id.' = new google.maps.Marker({
+                var marker' . $id . ' = new google.maps.Marker({
                     map: map, icon: icon, position:
                     new google.maps.LatLng('.esc_js( $lat ).','.esc_js( $lng ).')
                 });
 
-                google.maps.event.addListener(marker'.absint( $post_id ).', "click", function() {
-                    infowindow.open(map, marker'.absint( $post_id ).');
+                var contentString' . $id . ' = "<div><p>' . $address . '</p></div>";
+                var infowindow' . $id . ' = new google.maps.InfoWindow({
+                    content: contentString' . $id . '
                 });
-            ';
-            //increment!
-            $counter++;
+                google.maps.event.addListener(marker' . $id . ', "click", function() {
+                    infowindow' . $id . '.open(map, marker' . $id . ');
+                });';
+            $markers++;
         }
 
         if ( $markers == 1 ) {
