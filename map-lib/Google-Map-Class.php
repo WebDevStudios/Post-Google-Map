@@ -11,7 +11,11 @@ class GMP_Google_Map {
     }
 
     public function display_map( $height='650', $id='map_canvas' ) {
-		echo '<div id="'.esc_attr( $this->element_id ).'" style="height:' .absint( $height ) .'px;"></div>';
+
+		$map_div = '<div id="'.esc_attr( $this->element_id ).'" style="height:' .absint( $height ) .'px;"></div>';
+
+		echo $map_div;
+
     }
 
     public function javascript_include() {
@@ -48,7 +52,7 @@ class GMP_Google_Map {
 			$js_footer .= '}';
 			$js_footer .= 'setTimeout( "wds_map_markers_initialize()", 10 );';
 			$js_footer .= '</script>';
-		} elseif ( $this->element_id == 'map_canvas_shortcode' ) {
+		}elseif ( $this->element_id == 'map_canvas_shortcode' ) {
 			$js_footer .= '<script type="text/javascript">';
 			$js_footer .= 'function wds_map_markers_initialize_shortcode() {';
 			$js_footer .= '    var coords = new google.maps.LatLng( \'0\', \'0\' );';
@@ -79,17 +83,17 @@ class GMP_Google_Map {
 
         for ( $row = 0; $row < count( $gmp_arr ); $row++ ) {
 
-            $title      = $gmp_arr[$row]["gmp_title"];
-            $desc       = $gmp_arr[$row]["gmp_description"];
-            $lat        = $gmp_arr[$row]["gmp_lat"];
-            $lng        = $gmp_arr[$row]["gmp_long"];
-            $address    = $gmp_arr[$row]["gmp_address1"];
+			$title = $gmp_arr[$row]["gmp_title"];
+			$desc = $gmp_arr[$row]["gmp_description"];
+			$lat = $gmp_arr[$row]["gmp_lat"];
+			$lng =  $gmp_arr[$row]["gmp_long"];
+			$address = $gmp_arr[$row]["gmp_address1"];
 
-            $location_id    = $post->ID;
-            $featimg        = $this->get_listing_thumbnail( NULL, $post->ID );
-            $entry_url      = get_permalink( $post->ID );
-            $post_type      = get_post_type( $post );
-            $html           = $post->post_content;
+            $location_id=$post->ID;
+            $featimg = $this->get_listing_thumbnail( NULL, $post->ID );
+            $entry_url = get_permalink( $post->ID );
+            $post_type = get_post_type( $post );
+            $html = $post->post_content;
 
             if ( $lat && $lng ) {
 
@@ -113,10 +117,12 @@ class GMP_Google_Map {
     }
 
     public function get_listing_thumbnail( $listing_post_type='', $post_id ) {
+
 		//future feature
 		$feat_image = '';
 
         return $feat_image;
+
     }
 
     public function EL_wds_map_load_markers( $args_arr=array(), $map_height="400px", $map_width="100%", $echo="yes" ) {
@@ -128,19 +134,16 @@ class GMP_Google_Map {
         if ( empty( $args_arr ) ) {
             return $return;
         }
-        //extract our post meta early, so that we actually get ALL meta fields. Before we kept getting just first one.
-        //Don't ask me how we were getting multiple markers for the different addresses.
-        $id = $args_arr[0]['post_id'];
-        $gmp_arr = get_post_meta( $id, 'gmp_arr', false );
-        $counter = 0;
+
         foreach ( $args_arr as $args ) {
 
 			$markers++;
 
             extract( $args, EXTR_OVERWRITE );
 
-			//$gmp_arr = get_post_meta( $post_id, 'gmp_arr', true );
-			$gmp_marker = ( !empty( $gmp_arr[ $counter ]['gmp_marker'] ) ) ? $gmp_arr[ $counter ]["gmp_marker"] : 'blue-dot.png';
+			$gmp_arr = get_post_meta( $post_id, 'gmp_arr', true );
+
+			$gmp_marker = ( is_array( $gmp_arr ) ) ? $gmp_arr["gmp_marker"] : 'blue-dot.png';
 
 			$return .= 'var icon = new google.maps.MarkerImage( "'.plugins_url( '/markers/' .$gmp_marker, dirname( __FILE__ ) ).'")';
 
@@ -158,8 +161,6 @@ class GMP_Google_Map {
                     infowindow.open(map, marker'.absint( $post_id ).');
                 });
             ';
-            //increment!
-            $counter++;
         }
 
         if ( $markers == 1 ) {
