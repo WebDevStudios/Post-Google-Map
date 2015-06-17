@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: map, google, posts, plot, widget, address, API, sidebar, v3
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.7.0
+Stable tag: 1.6.2
 License: GPLv2
 
 Add multiple addresses to a post or page.  Addresses will be plotted on a Google Map in your post/page or in the Post Google Map sidebar widget.
@@ -25,7 +25,13 @@ Custom plot markers can be upload to the /markers folder.
 
 == Changelog ==
 
-= 1.7 =
+= 1.6.2 =
+* Adding Spanish Translations and .pot file. Props Andrew Kurtis of http://www.webhostinghub.com/
+
+= 1.6.1 =
+* Fix map pin issue where multiple color selections didn't work
+* Updated to non-deprecated Google API for geolocation coordinates.
+* Translation ready
 
 = 1.6 =
 * Full plugin rewrite
@@ -54,7 +60,6 @@ Custom plot markers can be upload to the /markers folder.
 = 1.4.2 =
 * updated marker path for subdirectories
 * fixed to show markers on map
-
 
 = 1.4.1 =
 * Bug fix
