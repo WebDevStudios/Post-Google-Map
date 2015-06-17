@@ -1,0 +1,205 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Google Map\n"
+"POT-Creation-Date: 2015-06-11 23:38-0600\n"
+"PO-Revision-Date: 2015-06-16 16:41+0100\n"
+"Last-Translator: Borisa Djuraskovic <borisad@webhostinghub.com>\n"
+"Language-Team: Michael Beckwith <michael.d.beckwith@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: post-google-map.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Language: es_ES\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#. Plugin Name of the plugin/theme
+#: post-google-map.php:81 post-google-map.php:82 post-google-map.php:371
+msgid "Post Google Map"
+msgstr "Post Google Map"
+
+#: post-google-map.php:233
+msgid "To display in your post, add this shortcode"
+msgstr "Para mostrar en su post, adiciones este código corto"
+
+#: post-google-map.php:234
+msgid "Current Saved Addresses"
+msgstr "Direcciones Actualmente Salvadas"
+
+#: post-google-map.php:238 post-google-map.php:327
+msgid "Address 1"
+msgstr "Dirección 1"
+
+#: post-google-map.php:239 post-google-map.php:331
+msgid "Address 2"
+msgstr "Dirección 2"
+
+#: post-google-map.php:240 post-google-map.php:335
+msgid "City"
+msgstr "Ciudad"
+
+#: post-google-map.php:241 post-google-map.php:339
+msgid "State"
+msgstr "Estado"
+
+#: post-google-map.php:242
+msgid "Zip"
+msgstr "CP"
+
+#: post-google-map.php:258
+msgid "Delete Address"
+msgstr "Borrar Dirección"
+
+#: post-google-map.php:283
+msgid ""
+"Enter an address or coordinates to plot this post/page on a Google Map.  You "
+"can enter multiple addresses"
+msgstr ""
+"Entrar una dirección o coordenadas para trazar este post/página en un Mapa "
+"de Google. Usted puede entrar varias direcciones."
+
+#: post-google-map.php:290
+msgid "Marker"
+msgstr "Marcador"
+
+#: post-google-map.php:317 post-google-map.php:481
+msgid "Title"
+msgstr "Título"
+
+#: post-google-map.php:318
+msgid "*If blank will use post title."
+msgstr "*Si se deja en blanco se usará el título del post."
+
+#: post-google-map.php:321
+msgid "Description"
+msgstr "Descripción"
+
+#: post-google-map.php:323
+msgid "Use excerpt or first ten words of post if excerpt is blank."
+msgstr ""
+"Usar extracto o las primeras diez letras del pos si el extracto es blanco."
+
+#: post-google-map.php:343
+msgid "Zip Code"
+msgstr "Código Postal"
+
+#: post-google-map.php:351
+msgid "Latitude"
+msgstr "Latitud"
+
+#: post-google-map.php:355
+msgid "Longitude"
+msgstr "Longitude"
+
+#: post-google-map.php:361
+msgid "Add Address"
+msgstr "Adicionar Dirección"
+
+#: post-google-map.php:371
+msgid "Post Google Map Options"
+msgstr "Opciones de Post Google Map"
+
+#: post-google-map.php:404
+msgid "Settings saved."
+msgstr "Ajustes salvados."
+
+#: post-google-map.php:414
+msgid "Post Google Map Settings"
+msgstr "Ajustes de Post Google Map"
+
+#: post-google-map.php:422
+msgid "Default Map Settings"
+msgstr "Ajustes del Mapa por Defecto"
+
+#: post-google-map.php:425
+msgid "Map Type"
+msgstr "Tipo de Mapa"
+
+#: post-google-map.php:428
+msgid "Road"
+msgstr "Camino"
+
+#: post-google-map.php:429
+msgid "Satellite"
+msgstr "Satélite"
+
+#: post-google-map.php:430
+msgid "Hybrid"
+msgstr "Híbrido"
+
+#: post-google-map.php:431
+msgid "Terrain"
+msgstr "Terreno"
+
+#: post-google-map.php:436
+msgid "Marker Plot Max"
+msgstr "Trazado de Marcador Max"
+
+#: post-google-map.php:447
+msgid "*per page load"
+msgstr "*por carga de página"
+
+#: post-google-map.php:452
+msgid "Save Changes"
+msgstr "Salvar Cambios"
+
+#: post-google-map.php:455
+msgid "How do I add custom icons to be used for map markers"
+msgstr ""
+"Como adiciono iconos personalizados para ser usados en los marcadores de mapa"
+
+#: post-google-map.php:456
+msgid ""
+"Create a folder inside your wp-content folder named \"markers\", add your "
+"custom markers to the folder, and we will do the rest."
+msgstr ""
+"Cree una carpeta dentro de su carpeta wp-content llamada \"markers\", "
+"adicione sus marcadores personalizados a la carpeta, y nosotros haremos el "
+"resto."
+
+#: post-google-map.php:458
+#, php-format
+msgid ""
+"For support please visit our %s Support Forum %s. Please file bugs %s GitHub "
+"%s Version "
+msgstr ""
+"Para soporte por favor visite nuestro %s Foro  de Soporte %s. Por favor "
+"archive los errores con la Versión de %s GitHub %s "
+
+#: post-google-map.php:470
+msgid "Widget to show Post Google Map plots"
+msgstr "Widget para mostrar los trazados de Post Google Map "
+
+#: post-google-map.php:472
+msgid "Post Google Map Widget"
+msgstr "Widget de Post Google Map "
+
+#. Plugin URI of the plugin/theme
+msgid "http://webdevstudios.com/support/wordpress-plugins/"
+msgstr "http://webdevstudios.com/support/wordpress-plugins/"
+
+#. Description of the plugin/theme
+msgid ""
+"Plugin allows posts to be linked to specific addresses and coordinates and "
+"display plotted on a Google Map.  Use shortcode [google-map] to display map "
+"directly in your post/page.  Map shows plots for each address added to the "
+"post you are viewing."
+msgstr ""
+"El plugin permite a los posts ser enlazados a direcciones y coordenadas "
+"específicas y mostrar trazados en Google Map. Utilice el código corto "
+"[google-map] para mostrar el mapa directamente en su post/página. El mapa "
+"muestra los trazados para cada dirección adicionada al post que está viendo."
+
+#. Author of the plugin/theme
+msgid "WebDevStudios.com"
+msgstr "WebDevStudios.com"
+
+#. Author URI of the plugin/theme
+msgid "http://webdevstudios.com"
+msgstr "http://webdevstudios.com"
