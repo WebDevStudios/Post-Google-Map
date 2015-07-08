@@ -3,13 +3,13 @@
 Plugin Name: Post Google Map
 Plugin URI: http://webdevstudios.com/support/wordpress-plugins/
 Description: Plugin allows posts to be linked to specific addresses and coordinates and display plotted on a Google Map.  Use shortcode [google-map] to display map directly in your post/page.  Map shows plots for each address added to the post you are viewing.
-Version: 1.7.0
+Version: 1.6.3
 Author: WebDevStudios.com
 Author URI: http://webdevstudios.com
 License: GPLv2
 */
 
-$gmp_version = '1.7.0';
+$gmp_version = '1.6.3';
 
 //hook for adding admin menus
 add_action( 'admin_menu', 'gmp_menu' );
@@ -464,12 +464,12 @@ function gmp_options() {
 class gmp_map_widget extends WP_Widget {
 
 	//process the new widget
-	function gmp_map_widget() {
+	function __construct() {
 		$widget_ops = array(
 			'classname' => 'gmp_map_widget',
 			'description' => __( 'Widget to show Post Google Map plots', 'gmp-plugin' )
 			);
-		$this->WP_Widget( 'gmp_map_widget', __( 'Post Google Map Widget', 'gmp-plugin' ), $widget_ops );
+		parent::__construct( 'gmp_map_widget', __( 'Post Google Map Widget', 'gmp-plugin' ), $widget_ops );
 	}
 
 	 //build the widget settings form
