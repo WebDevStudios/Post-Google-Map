@@ -17,6 +17,8 @@ You can also set a custom title and description for each address saved.
 
 Custom plot markers can be upload to the /markers folder.
 
+[Pluginize](https://pluginize.com/?utm_source=post-google-map&utm_medium=text&utm_campaign=wporg) was launched in 2016 by [WebDevStudios](https://webdevstudios.com/) to promote, support, and house all of their [WordPress products](https://pluginize.com/shop/?utm_source=post-google-map&utm_medium=text&utm_campaign=wporg). Pluginize is not only creating new products for WordPress all the time, but also provides [ongoing support and development for WordPress community favorites like CPTUI](https://wordpress.org/plugins/custom-post-type-ui/), [CMB2](https://wordpress.org/plugins/cmb2/), and more.
+
 == Screenshots ==
 
 1. Google Map Shortcode displaying multiple plots on a map in a post
