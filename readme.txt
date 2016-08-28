@@ -3,7 +3,7 @@ Contributors: williamsba1, Messenlehner, webdevstudios, tw2113
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3084056
 Tags: map, google, posts, plot, widget, address, API, sidebar, v3
 Requires at least: 3.0
-Tested up to: 3.5
+Tested up to: 4.6
 Stable tag: 1.6.3
 License: GPLv2
 
