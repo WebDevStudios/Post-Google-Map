@@ -23,7 +23,7 @@ class GMP_Google_Map {
 		$javascript = '';
 		$js_footer = '';
 
-		$javascript = $this->build_marker_javascript();
+		$javascript .= $this->build_marker_javascript();
 
 		if ( ! $map_included ) {
 			$js_footer .= '<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>';
