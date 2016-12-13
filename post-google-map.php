@@ -47,7 +47,7 @@ function gmp_add_new_address() {
 }
 
 function gmp_generate_map( $height = '650', $id = 'map_canvas' ) {
-	include_once( plugin_dir_path( __FILE__ ) .'map-lib/Google-Map-Class.php' );
+	include_once plugin_dir_path( __FILE__ ) .'map-lib/Google-Map-Class.php';
 	?><div id="google_map" class="paper shadow"><?php
 	$gmp_google_map = new GMP_Google_Map();
 	$gmp_google_map->run( absint( $height ), $id );
