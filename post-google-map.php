@@ -347,7 +347,7 @@ function gmp_update_options() {
 
 
 function gmp_options() {
-	global $gmp_version;
+	$gmp_version = gmp_version();
 
 	if ( isset( $_POST['update_gmp_options'] ) && $_POST['update_gmp_options'] ) {
 
@@ -360,95 +360,66 @@ function gmp_options() {
 
 	$options_map_type = $options_arr['post_gmp_map_type'];
 	$gmp_marker_max = $options_arr['gmp_marker_max'];
-
-	echo '<div class="wrap">';
-	echo '<h2>' . esc_html__( 'Post Google Map Settings', 'gmp-plugin' ) . '</h2>';
-	echo '<form method="post" action="">';
-
-	wp_nonce_field( 'gmp_check' );
-
-	echo '<input type="hidden" name="update_gmp_options" value="1">';
 	?>
-	<strong><?php esc_html_e( 'Default Map Settings', 'gmp-plugin' ); ?></strong>
-	<table>
-	<tr>
-	<td align=right><?php esc_html_e( 'Map Type', 'gmp-plugin' ); ?>:</td>
-	<td>
-		<select name="gmp_map_type">
-			<option value="ROADMAP" <?php selected( $options_map_type, 'ROADMAP' ); ?> ><?php esc_html_e( 'Road', 'gmp-plugin' ); ?>
-			<option value="SATELLITE" <?php selected( $options_map_type, 'SATELLITE' ); ?> ><?php esc_html_e( 'Satellite', 'gmp-plugin' ); ?>
-			<option value="HYBRID" <?php selected( $options_map_type, 'HYBRID' ); ?> ><?php esc_html_e( 'Hybrid', 'gmp-plugin' ); ?>
-			<option value="TERRAIN" <?php selected( $options_map_type, 'TERRAIN' ); ?> ><?php esc_html_e( 'Terrain', 'gmp-plugin' ); ?>
-		</select>
-	</td>
-	</tr>
-	<tr>
-			<td align=right><?php esc_html_e( 'Marker Plot Max', 'gmp-plugin' ); ?>:</td>
-			<td>
-				<select name="gmp_marker_max">
-					<?php
-					for ( $x = 0; $x < 50; ) {
-						$x = $x + 5;
-						?>
-						<option value='<?php echo esc_attr( $x ); ?>' <?php selected( $gmp_marker_max, $x ); ?>><?php echo esc_html( $x ); ?>
-						<?php
-					}
-					?>
-				</select>
-				<?php esc_html_e( '*per page load', 'gmp-plugin' ); ?>
-			</td>
-	</tr>
-	</table>
 
-	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'gmp-plugin' ); ?>" class="button-primary" /></p>
-	</form>
+	<div class="wrap">
+		<h2><?php echo get_admin_page_title(); ?></h2>
+
+		<form method="post" action="">
+			<?php wp_nonce_field( 'gmp_check' ); ?>
+
+			<input type="hidden" name="update_gmp_options" value="1">
+			<strong><?php esc_html_e( 'Default Map Settings', 'gmp-plugin' ); ?></strong>
+
+			<table class="form-table">
+				<tr>
+					<td><?php esc_html_e( 'Map Type:', 'gmp-plugin' ); ?></td>
+					<td>
+						<select name="gmp_map_type">
+							<option value="ROADMAP" <?php selected( $options_map_type, 'ROADMAP' ); ?> ><?php esc_html_e( 'Road', 'gmp-plugin' ); ?>
+							<option value="SATELLITE" <?php selected( $options_map_type, 'SATELLITE' ); ?> ><?php esc_html_e( 'Satellite', 'gmp-plugin' ); ?>
+							<option value="HYBRID" <?php selected( $options_map_type, 'HYBRID' ); ?> ><?php esc_html_e( 'Hybrid', 'gmp-plugin' ); ?>
+							<option value="TERRAIN" <?php selected( $options_map_type, 'TERRAIN' ); ?> ><?php esc_html_e( 'Terrain', 'gmp-plugin' ); ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><?php esc_html_e( 'Marker Plot Max', 'gmp-plugin' ); ?>:</td>
+					<td>
+						<select name="gmp_marker_max">
+							<?php
+							foreach ( range( 5, 50, 5 ) as $value ) { ?>
+								<option value="<?php esc_attr_e( $value ); ?>" <?php selected( $gmp_marker_max, $value ); ?>><?php esc_html_e( $value ); ?>
+							<?php
+							}
+						?>
+						</select>
+						<?php esc_html_e( '*per page load', 'gmp-plugin' ); ?>
+					</td>
+				</tr>
+			</table>
+			<p><?php submit_button( __( 'Save Changes', 'gmp-plugin' ) ); ?></p>
+		</form>
 
 	<h3><?php esc_html_e( 'How do I add custom icons to be used for map markers', 'gmp-plugin' ); ?></h3>
 	<p><?php esc_html_e( 'Create a folder inside your wp-content folder named "markers", add your custom markers to the folder, and we will do the rest.', 'gmp-plugin' ); ?></p>
 	<?php
-	echo '<p>' . sprintf( __( 'For support please visit our %s Support Forum %s. Please file bugs %s GitHub %s Version '. $gmp_version .' by %s | %s ' ), '<a href="http://wordpress.org/support/plugin/post-google-map" target="_blank">', '</a>', '<a href="https://github.com/WebDevStudios/Post-Google-Map">', '</a><br/>','<a href="http://webdevstudios.com/" target="_blank">WebDevStudios.com</a>', '<a href="http://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>' ) . '</p></div>';
-}
+	$template = '<p>%s</p>';
 
-class gmp_map_widget extends WP_Widget {
-	function __construct() {
-		$widget_ops = array(
-			'classname'   => 'gmp_map_widget',
-			'description' => __( 'Widget to show Post Google Map plots', 'gmp-plugin' ),
-		);
-		parent::__construct( 'gmp_map_widget', __( 'Post Google Map Widget', 'gmp-plugin' ), $widget_ops );
-	}
-
-	function form( $instance ) {
-		$defaults = array( 'title' => 'Google Map' );
-		$instance = wp_parse_args( (array) $instance, $defaults );
-		$title = $instance['title'];
-		?>
-			<p><?php esc_html_e( 'Title', 'gmp-plugin' ); ?>: <input class="widefat" name="<?php echo $this->get_field_name( 'title' ); ?>"  type="text" value="<?php echo esc_attr( $title ); ?>" /></p>
-		<?php
-	}
-
-	function update( $new_instance, $old_instance ) {
-		$instance = $old_instance;
-
-		$instance['title'] = strip_tags( $new_instance['title'] );
-
-		return $instance;
-	}
-
-	//display the widget
-	function widget( $args, $instance ) {
-
-		echo $args['before_widget'];
-		$title = apply_filters( 'widget_title', $instance['title'] );
-
-		if ( ! empty( $title ) ) {
-			echo $args['before_title'] . esc_html( $title ) . $args['after_title'];
-		}
-
-		gmp_generate_map( '200' );
-
-		wp_reset_postdata();
-
-		echo $args['after_widget'];
-	}
+	printf(
+		$template,
+		sprintf(
+			__( 'For support, please visit our %sSupport Forum%s. Please file bugs %s GitHub %s Version %s by %s | %s ', 'gmp-plugin' ),
+			'<a href="https://wordpress.org/support/plugin/post-google-map" target="_blank">',
+			'</a>',
+			'<a href="https://github.com/WebDevStudios/Post-Google-Map">',
+			'</a><br/>',
+			$gmp_version,
+			'<a href="https://webdevstudios.com/" target="_blank">WebDevStudios.com</a>',
+			'<a href="https://twitter.com/webdevstudios" target="_blank">@WebDevStudios</a>'
+		)
+	);
+	?>
+	</div>
+<?php
 }
