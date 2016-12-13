@@ -9,7 +9,9 @@ Author URI: http://webdevstudios.com
 License: GPLv2
 */
 
-$gmp_version = '1.6.3';
+function gmp_version() {
+	return '1.6.3';
+}
 
 add_action( 'admin_menu', 'gmp_menu' );
 add_action( 'admin_menu', 'gmp_add_new_address' );
