@@ -165,16 +165,18 @@ function gmp_post_meta_tags() {
 }
 
 function gmp_meta_box( $the_post ) {
+
+	if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
+		return;
+	}
+
 	global $isdeleted;
 
 	if ( isset( $_GET['deladdy'] ) && '' !== $_GET['deladdy'] && true !== $isdeleted ) {
-		if ( is_admin() && current_user_can( 'edit_posts' ) ) {
+		check_admin_referer( 'delete-address' );
+		$deladdy = absint( $_GET['deladdy'] );
 
-			check_admin_referer( 'delete-address' );
-			$deladdy = absint( $_GET['deladdy'] );
-
-			del_gmp_address( $deladdy );
-		}
+		del_gmp_address( $deladdy );
 	}
 
 	$gmp_arr = get_post_meta( $the_post->ID, 'gmp_arr', false );
