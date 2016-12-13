@@ -83,83 +83,84 @@ function del_gmp_address( $deladdy ) {
 
 function gmp_post_meta_tags() {
 
-	//verify user is on the admin dashboard and at least a contributor
-	if ( is_admin() && current_user_can( 'edit_posts' ) ) {
-		global $alreadyran;
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
 
-		$gmp_id = absint( $_POST['gmp_id'] );
-		$ssl = ( is_ssl() ) ? 'https' : 'http';
+	if ( ! is_admin() || ! current_user_can( 'edit_posts' ) ) {
+		return;
+	}
 
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
+	global $alreadyran;
 
-		//save the form data from the post/page meta box
-		if ( isset( $gmp_id ) && ! empty( $gmp_id ) && '1' !== $alreadyran ) {
-			$id = $gmp_id;
-			$alreadyran = '1';
+	$map_id = absint( $_POST['gmp_id'] );
+	$ssl = ( is_ssl() ) ? 'https' : 'http';
+	$map_url = $ssl . '://maps.googleapis.com/maps/api/geocode/json?sensor=false';
 
-			$gmp_long        = esc_attr( $_POST['gmp_long'] );
-			$gmp_lat         = esc_attr( $_POST['gmp_lat'] );
-			$gmp_address1    = esc_attr( $_POST['gmp_address1'] );
-			$gmp_address2    = esc_attr( $_POST['gmp_address2'] );
-			$gmp_city        = esc_attr( $_POST['gmp_city'] );
-			$gmp_state       = esc_attr( $_POST['gmp_state'] );
-			$gmp_zip         = esc_attr( $_POST['gmp_zip'] );
-			$gmp_marker      = esc_attr( $_POST['gmp_marker'] );
-			$gmp_title       = esc_attr( $_POST['gmp_title'] );
-			$gmp_description = esc_attr( $_POST['gmp_description'] );
-			$gmp_desc_show   = esc_attr( $_POST['gmp_desc_show'] );
 
-			if ( isset( $gmp_long ) && ! empty( $gmp_long ) && isset( $gmp_lat ) && ! empty( $gmp_lat ) ) {
-				$coords = implode( ',', array( $gmp_lat, $gmp_long ) );
-				$iaddress = $ssl . '://maps.googleapis.com/maps/api/geocode/json?sensor=false&latlng=' . $coords;
-				$result = wp_remote_get( $iaddress );
 
-				if ( ! is_wp_error( $result ) ) {
-					$address = json_decode( $result['body'] );
+	//save the form data from the post/page meta box
+	if ( isset( $map_id ) && ! empty( $map_id ) && '1' !== $alreadyran ) {
+		$id         = $map_id;
+		$alreadyran = '1';
 
-					$lat = $gmp_lat;
-					$lng = $gmp_long;
-					$gmp_address1 = $address->results[0]->address_components[0]->long_name . $address->results[0]->address_components[1]->short_name;
-					$gmp_city = $address->results[0]->address_components[3]->long_name;
-					$gmp_state = $address->results[0]->address_components[6]->short_name;
-					$gmp_zip = $address->results[0]->address_components[8]->long_name;
-				}
-			} elseif ( isset( $gmp_address1 ) && ! empty( $gmp_address1 ) ) {
+		$longitude        = esc_attr( $_POST['gmp_long'] );
+		$latitude         = esc_attr( $_POST['gmp_lat'] );
+		$address1         = esc_attr( $_POST['gmp_address1'] );
+		$address2         = esc_attr( $_POST['gmp_address2'] );
+		$city             = esc_attr( $_POST['gmp_city'] );
+		$state            = esc_attr( $_POST['gmp_state'] );
+		$zip              = esc_attr( $_POST['gmp_zip'] );
+		$marker           = esc_attr( $_POST['gmp_marker'] );
+		$title            = esc_attr( $_POST['gmp_title'] );
+		$description      = esc_attr( $_POST['gmp_description'] );
+		$description_show = esc_attr( $_POST['gmp_desc_show'] );
 
-				$addressarr = array( $gmp_address1, $gmp_city, $gmp_state, $gmp_zip );
-				$address = implode( ',', $addressarr );
-				$iaddress = $ssl . '://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=' . urlencode( $address );
+		if ( isset( $longitude ) && ! empty( $longitude ) && isset( $latitude ) && ! empty( $latitude ) ) {
+			$coordinates = implode( ',', array( $latitude, $longitude ) );
+			$iaddress    = add_query_arg( array( 'latlng' => $coordinates ), $map_url );
+			$result      = wp_remote_get( $iaddress );
 
-				$result = wp_remote_get( $iaddress );
-				if ( ! is_wp_error( $result ) ) {
+			if ( ! is_wp_error( $result ) ) {
+				$address  = json_decode( $result['body'] );
 
-					$json = json_decode( $result['body'] );
-					//set lat/long for address from JSON response
-					$lat = $json->results[0]->geometry->location->lat;
-					$lng = $json->results[0]->geometry->location->lng;
-				}
+				$address1 = $address->results[0]->address_components[0]->long_name . $address->results[0]->address_components[1]->short_name;
+				$city     = $address->results[0]->address_components[3]->long_name;
+				$state    = $address->results[0]->address_components[6]->short_name;
+				$zip      = $address->results[0]->address_components[8]->long_name;
 			}
+		} elseif ( isset( $address1 ) && ! empty( $address1 ) ) {
 
-			$gmp_arr = array(
-				'gmp_long'        => $lng,
-				'gmp_lat'         => $lat,
-				'gmp_address1'    => $gmp_address1,
-				'gmp_address2'    => $gmp_address2,
-				'gmp_city'        => $gmp_city,
-				'gmp_state'       => $gmp_state,
-				'gmp_zip'         => $gmp_zip,
-				'gmp_marker'      => $gmp_marker,
-				'gmp_title'       => $gmp_title,
-				'gmp_description' => $gmp_description,
-				'gmp_desc_show'   => $gmp_desc_show,
-			);
+			$addressarr = array( $address1, $city, $state, $zip );
+			$address    = implode( ',', $addressarr );
+			$iaddress   = add_query_arg( array( 'address' => urlencode( $address ) ), $map_url );
 
-			$gmp_arr = array_map( 'strip_tags', $gmp_arr );
+			$result = wp_remote_get( $iaddress );
+			if ( ! is_wp_error( $result ) ) {
+				$json      = json_decode( $result['body'] );
 
-			add_post_meta( $id, 'gmp_arr', $gmp_arr );
+				$latitude  = $json->results[0]->geometry->location->lat;
+				$longitude = $json->results[0]->geometry->location->lng;
+			}
 		}
+
+		$gmp_arr = array(
+			'gmp_long'        => $longitude,
+			'gmp_lat'         => $latitude,
+			'gmp_address1'    => $address1,
+			'gmp_address2'    => $address2,
+			'gmp_city'        => $city,
+			'gmp_state'       => $state,
+			'gmp_zip'         => $zip,
+			'gmp_marker'      => $marker,
+			'gmp_title'       => $title,
+			'gmp_description' => $description,
+			'gmp_desc_show'   => $description_show,
+		);
+
+		$gmp_arr = array_map( 'strip_tags', $gmp_arr );
+
+		update_post_meta( $id, 'gmp_arr', $gmp_arr );
 	}
 }
 
