@@ -16,18 +16,19 @@ function gmp_version() {
 add_action( 'admin_menu', 'gmp_menu' );
 add_action( 'admin_menu', 'gmp_add_new_address' );
 add_action( 'admin_menu', 'gmp_meta_box_add' );
-add_action( 'widgets_init', 'gmp_register_widget' );
-add_action( 'plugins_loaded', 'gmp_textdomain' );
 add_shortcode( 'google-map', 'gmp_register_shortcode' );
 
 
 function gmp_textdomain() {
 	load_plugin_textdomain( 'gmp-plugin', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
+add_action( 'plugins_loaded', 'gmp_textdomain' );
 
 function gmp_register_widget() {
+	require_once plugin_dir_path( __FILE__ ) . '/widgets/widget.php';
 	register_widget( 'gmp_map_widget' );
 }
+add_action( 'widgets_init', 'gmp_register_widget' );
 
 function gmp_register_shortcode() {
 	global $gmp_display;
