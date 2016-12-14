@@ -274,33 +274,33 @@ function gmp_meta_box( $the_post ) {
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_title"><?php esc_html_e( 'Title', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_title" name="gmp_title" size="25" tabindex="91" /> <?php esc_html_e( '*If blank will use post title.', 'gmp-plugin' ); ?></td>
+			<td><input value="" type="text" id="gmp_title" name="gmp_title" size="25" /> <?php esc_html_e( '*If blank will use post title.', 'gmp-plugin' ); ?></td>
 			</tr>
 			<tr>
 			<th valign="top" scope="row" style="text-align:right;"><label for="gmp_description"><?php esc_html_e( 'Description', 'gmp-plugin' ) ?></label></th>
-			<td><textarea id="gmp_description" name="gmp_description" style="width:300px;" tabindex="92" ></textarea><br>
+			<td><textarea id="gmp_description" name="gmp_description" style="width:300px;"></textarea><br>
 			<input checked type="checkbox" id="gmp_desc_show" name="gmp_desc_show"><label for="gmp_desc_show"><?php esc_html_e( 'Use excerpt or first ten words of post if excerpt is blank.', 'gmp-plugin' ); ?></label>
 			</td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_address1"><?php esc_html_e( 'Address 1', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_address1" name="gmp_address1" size="25" tabindex="93" /></td>
+			<td><input value="" type="text" id="gmp_address1" name="gmp_address1" size="25" /></td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_address2"><?php esc_html_e( 'Address 2', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_address2" name="gmp_address2" size="25" tabindex="94" /></td>
+			<td><input value="" type="text" id="gmp_address2" name="gmp_address2" size="25" /></td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_city"><?php esc_html_e( 'City', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_city" name="gmp_city" size="25" tabindex="95" /></td>
+			<td><input value="" type="text" id="gmp_city" name="gmp_city" size="25" /></td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_state"><?php esc_html_e( 'State', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_state" name="gmp_state" size="15" tabindex="96" /></td>
+			<td><input value="" type="text" id="gmp_state" name="gmp_state" size="15" /></td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_zip"><?php esc_html_e( 'Zip Code', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_zip" name="gmp_zip" size="10" tabindex="97" /></td>
+			<td><input value="" type="text" id="gmp_zip" name="gmp_zip" size="10" /></td>
 			</tr>
 			<tr>
 				<th scope="row" style="text-align:right;"></th>
@@ -308,16 +308,16 @@ function gmp_meta_box( $the_post ) {
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_lat"><?php esc_html_e( 'Latitude', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_lat" name="gmp_lat" size="20" tabindex="98" /></td>
+			<td><input value="" type="text" id="gmp_lat" name="gmp_lat" size="20" /></td>
 			</tr>
 			<tr>
 			<th scope="row" style="text-align:right;"><label for="gmp_long"><?php esc_html_e( 'Longitude', 'gmp-plugin' ) ?></label></th>
-			<td><input value="" type="text" id="gmp_long" name="gmp_long" size="20" tabindex="99" /></td>
+			<td><input value="" type="text" id="gmp_long" name="gmp_long" size="20" /></td>
 			</tr>
 			<tr>
 			<th scope="row"></th>
 			<td>
-					<input type="submit" class="button button-secondary" name="gmp_submit" value="<?php esc_html_e( 'Add Address', 'gmp-plugin' ); ?>" tabindex="100" />
+					<input type="submit" class="button button-secondary" name="gmp_submit" value="<?php esc_html_e( 'Add Address', 'gmp-plugin' ); ?>" />
 			</td>
 			</tr>
 		</table>
